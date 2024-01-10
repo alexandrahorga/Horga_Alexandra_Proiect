@@ -35,6 +35,12 @@
                 <span asp-validation-for="Pacient.DataConsultatie" class="textdanger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Pacient.DocID" class="control-label">Nume Doctor</label>
+                <select asp-for="Pacient.DocID" class="form-control" asp-items="ViewBag.DocID">
+                </select>
+                <span asp-validation-for="Pacient.DocID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

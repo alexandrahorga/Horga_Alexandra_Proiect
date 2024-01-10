@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Policy;
 using System.Xml.Linq;
 
 namespace Horga_Alexandra_Proiect.Models
@@ -17,5 +18,7 @@ namespace Horga_Alexandra_Proiect.Models
         public string Afectiune { get; set; }
         [DataType(DataType.Date)]
         public DateTime DataConsultatie { get; set; }
+        public int? DocID { get; set; }
+        public Doc? Doc{ get; set; }
     }
 }
