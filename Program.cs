@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Horga_Alexandra_Proiect.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<Horga_Alexandra_ProiectContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Horga_Alexandra_ProiectContext") ?? throw new InvalidOperationException("Connection string 'Horga_Alexandra_ProiectContext' not found.")));
 
 var app = builder.Build();
 
