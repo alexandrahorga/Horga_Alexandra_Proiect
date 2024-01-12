@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Horga_Alexandra_Proiect.Data;
 using Horga_Alexandra_Proiect.Models;
-using System.Security.Policy;
 
-namespace Horga_Alexandra_Proiect.Pages.Pacienti
+namespace Horga_Alexandra_Proiect.Pages.Categorii
 {
     public class CreateModel : PageModel
     {
@@ -22,24 +21,22 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
 
         public IActionResult OnGet()
         {
-            ViewData["DocID"] = new SelectList(_context.Set<Doc>(), "ID", "NumeDoctor");
-            ViewData["AsistentID"] = new SelectList(_context.Set<Asistent>(), "ID","Nume");
             return Page();
         }
 
         [BindProperty]
-        public Pacient Pacient { get; set; } = default!;
+        public Categorie Categorie { get; set; } = default!;
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Pacient == null || Pacient == null)
+          if (!ModelState.IsValid || _context.Categorie == null || Categorie == null)
             {
                 return Page();
             }
 
-            _context.Pacient.Add(Pacient);
+            _context.Categorie.Add(Categorie);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

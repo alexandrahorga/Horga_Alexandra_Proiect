@@ -1,11 +1,11 @@
 ﻿@page
-@model Horga_Alexandra_Proiect.Pages.Docs.IndexModel
+@model Horga_Alexandra_Proiect.Pages.Categorii.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Docrori</h1>
+<h1>Categorii Pacienti</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,16 +14,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Doc[0].NumeDoctor)
+                @Html.DisplayNameFor(model => model.Categorie[0].NumeCategorie)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Doc) {
+@foreach (var item in Model.Categorie) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NumeDoctor)
+                @Html.DisplayFor(modelItem => item.NumeCategorie)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

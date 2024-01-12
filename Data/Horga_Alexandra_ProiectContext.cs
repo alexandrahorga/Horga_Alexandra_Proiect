@@ -17,5 +17,9 @@ namespace Horga_Alexandra_Proiect.Data
         public DbSet<Horga_Alexandra_Proiect.Models.Pacient> Pacient { get; set; } = default!;
 
         public DbSet<Horga_Alexandra_Proiect.Models.Doc>? Doc { get; set; }
+
+        public DbSet<Horga_Alexandra_Proiect.Models.Categorie>? Categorie { get; set; }
+
+        public DbSet<Horga_Alexandra_Proiect.Models.Asistent>? Asistent { get; set; }
     }
 }

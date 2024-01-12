@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Horga_Alexandra_Proiect.Data;
 using Horga_Alexandra_Proiect.Models;
 
-namespace Horga_Alexandra_Proiect.Pages.Pacienti
+namespace Horga_Alexandra_Proiect.Pages.Asistenti
 {
     public class IndexModel : PageModel
     {
@@ -19,18 +19,14 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
             _context = context;
         }
 
-        public IList<Pacient> Pacient { get;set; } = default!;
+        public IList<Asistent> Asistent { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            ///if (_context.Pacient != null)
-            ///{
-            ///Pacient = await _context.Pacient.ToListAsync();
-            ///}
-            Pacient = await _context.Pacient
-                .Include(b => b.Doc)
-                .Include(c => c.Asistent)
-                .ToListAsync();
+            if (_context.Asistent != null)
+            {
+                Asistent = await _context.Asistent.ToListAsync();
+            }
         }
     }
 }
