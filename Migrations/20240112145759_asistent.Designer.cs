@@ -4,6 +4,7 @@ using Horga_Alexandra_Proiect.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Horga_Alexandra_Proiect.Migrations
 {
     [DbContext(typeof(Horga_Alexandra_ProiectContext))]
-    partial class Horga_Alexandra_ProiectContextModelSnapshot : ModelSnapshot
+    [Migration("20240112145759_asistent")]
+    partial class asistent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

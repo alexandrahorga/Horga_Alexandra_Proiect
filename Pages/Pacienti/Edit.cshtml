@@ -39,10 +39,16 @@
                 <select asp-for="Pacient.DocID" class="form-control" asp-items="ViewBag.DocID">
                 </select>
                 <span asp-validation-for="Pacient.DocID" class="text-danger"></span>
+            </div><div class="form-group">
+                <label asp-for="Pacient.AsistentID" class="control-label"> Nume Asistent</label>
+                <select asp-for="Pacient.AsistentID" class="form-control" asp-items="ViewBag.AsistentID">
+                </select>
+                <span asp-validation-for="Pacient.AsistentID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
+            
         </form>
     </div>
 </div>

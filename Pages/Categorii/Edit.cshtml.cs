@@ -8,11 +8,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Horga_Alexandra_Proiect.Data;
 using Horga_Alexandra_Proiect.Models;
-using System.Security.Policy;
 
-namespace Horga_Alexandra_Proiect.Pages.Pacienti
+namespace Horga_Alexandra_Proiect.Pages.Categorii
 {
-    public class EditModel : CategoriePacientPageModel
+    public class EditModel : PageModel
     {
         private readonly Horga_Alexandra_Proiect.Data.Horga_Alexandra_ProiectContext _context;
 
@@ -22,23 +21,21 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
         }
 
         [BindProperty]
-        public Pacient Pacient { get; set; } = default!;
+        public Categorie Categorie { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Pacient == null)
+            if (id == null || _context.Categorie == null)
             {
                 return NotFound();
             }
 
-            var pacient =  await _context.Pacient.FirstOrDefaultAsync(m => m.ID == id);
-            if (pacient == null)
+            var categorie =  await _context.Categorie.FirstOrDefaultAsync(m => m.ID == id);
+            if (categorie == null)
             {
                 return NotFound();
             }
-            Pacient = pacient;
-            ViewData["DocID"] = new SelectList(_context.Set<Doc>(), "ID", "NumeDoctor");
-            ViewData["AsistentID"] = new SelectList(_context.Set<Asistent>(), "ID", "Nume");
+            Categorie = categorie;
             return Page();
         }
 
@@ -51,7 +48,7 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
                 return Page();
             }
 
-            _context.Attach(Pacient).State = EntityState.Modified;
+            _context.Attach(Categorie).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +56,7 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PacientExists(Pacient.ID))
+                if (!CategorieExists(Categorie.ID))
                 {
                     return NotFound();
                 }
@@ -72,9 +69,9 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
             return RedirectToPage("./Index");
         }
 
-        private bool PacientExists(int id)
+        private bool CategorieExists(int id)
         {
-          return (_context.Pacient?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.Categorie?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

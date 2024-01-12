@@ -4,6 +4,7 @@ using Horga_Alexandra_Proiect.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Horga_Alexandra_Proiect.Migrations
 {
     [DbContext(typeof(Horga_Alexandra_ProiectContext))]
-    partial class Horga_Alexandra_ProiectContextModelSnapshot : ModelSnapshot
+    [Migration("20240111172542_CategoriePacient")]
+    partial class CategoriePacient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,27 +23,6 @@ namespace Horga_Alexandra_Proiect.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("Horga_Alexandra_Proiect.Models.Asistent", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Nume")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Prenume")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Asistent");
-                });
 
             modelBuilder.Entity("Horga_Alexandra_Proiect.Models.Categorie", b =>
                 {
@@ -112,9 +93,6 @@ namespace Horga_Alexandra_Proiect.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AsistentID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DataConsultatie")
                         .HasColumnType("datetime2");
 
@@ -130,8 +108,6 @@ namespace Horga_Alexandra_Proiect.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("AsistentID");
 
                     b.HasIndex("DocID");
 
@@ -159,22 +135,11 @@ namespace Horga_Alexandra_Proiect.Migrations
 
             modelBuilder.Entity("Horga_Alexandra_Proiect.Models.Pacient", b =>
                 {
-                    b.HasOne("Horga_Alexandra_Proiect.Models.Asistent", "Asistent")
-                        .WithMany("Pacienti")
-                        .HasForeignKey("AsistentID");
-
                     b.HasOne("Horga_Alexandra_Proiect.Models.Doc", "Doc")
                         .WithMany("Pacienti")
                         .HasForeignKey("DocID");
 
-                    b.Navigation("Asistent");
-
                     b.Navigation("Doc");
-                });
-
-            modelBuilder.Entity("Horga_Alexandra_Proiect.Models.Asistent", b =>
-                {
-                    b.Navigation("Pacienti");
                 });
 
             modelBuilder.Entity("Horga_Alexandra_Proiect.Models.Categorie", b =>

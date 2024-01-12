@@ -20,5 +20,10 @@ namespace Horga_Alexandra_Proiect.Models
         public DateTime DataConsultatie { get; set; }
         public int? DocID { get; set; }
         public Doc? Doc{ get; set; }
+        public ICollection<CategoriePacient>? CategoriePacient { get; set; }
+        public int? AsistentID { get; set; }
+        [Display(Name = "Nume Asistent ")]
+
+        public Asistent? Asistent { get; set; }
     }
 }
