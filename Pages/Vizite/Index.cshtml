@@ -1,0 +1,58 @@
+﻿@page
+@model Horga_Alexandra_Proiect.Pages.Vizite.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vizita[0].MembruFamilie)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vizita[0].Pacient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vizita[0].DataVizita)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vizita[0].Pacient.Asistent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vizita[0].DataVizita)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Vizita) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MembruFamilie.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pacient.Vizia.Pacient.Nume)
+            </td>
+                
+            <td>
+                @Html.DisplayFor(modelItem => item.DataVizita)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Pacient.Vizia.Pacient.Asistent.FullName)
+                </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
