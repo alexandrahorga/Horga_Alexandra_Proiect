@@ -1,0 +1,42 @@
+﻿@page
+@model Horga_Alexandra_Proiect.Pages.Vizite.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Vizita</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Vizita.MembruFamilieID" class="control-label"></label>
+                <select asp-for="Vizita.MembruFamilieID" class ="form-control" asp-items="ViewBag.MembruFamilieID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vizita.PacientID" class="control-label"></label>
+                <select asp-for="Vizita.PacientID" class ="form-control" asp-items="ViewBag.PacientID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vizita.DataVizita" class="control-label"></label>
+                <input asp-for="Vizita.DataVizita" class="form-control" />
+                <span asp-validation-for="Vizita.DataVizita" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

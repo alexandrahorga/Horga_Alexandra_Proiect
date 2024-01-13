@@ -25,5 +25,8 @@ namespace Horga_Alexandra_Proiect.Models
         [Display(Name = "Nume Asistent ")]
 
         public Asistent? Asistent { get; set; }
+        public int? VizitaID { get; set; }
+        public Vizita? Vizia { get; set; }
+
     }
 }
