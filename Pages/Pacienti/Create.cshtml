@@ -40,6 +40,13 @@
                 <span asp-validation-for="Pacient.DocID" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Pacient.AsistentID" class="control-label">Nume Asistent</label>
+                <select asp-for="Pacient.AsistentID" class="form-control" asp-items="ViewBag.AsistentID">
+                </select>
+                <span asp-validation-for="Pacient.Asistent" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

@@ -8,14 +8,9 @@
         public int CategorieID { get; set; }
         public Categorie Categorie { get; set; }
 
-        internal static bool Contains(int iD)
-        {
-            throw new NotImplementedException();
-        }
-
         internal static bool Contains(HashSet<int> pacientCategorii, int iD)
         {
-            throw new NotImplementedException();
+            return pacientCategorii.Contains(iD);
         }
     }
 }
