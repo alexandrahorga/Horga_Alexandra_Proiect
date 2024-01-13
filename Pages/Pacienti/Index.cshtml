@@ -10,11 +10,23 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Gaseste dupa numele pacientului / Asistentului
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.NumeSort">
                 @Html.DisplayNameFor(model => model.Pacient[0].Nume)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Pacient[0].Doctor)
@@ -29,15 +41,26 @@
                 @Html.DisplayNameFor(model => model.Pacient[0].Doc.NumeDoctor)
             </th>
             <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.AsistentSort">
                 @Html.DisplayNameFor(model => model.Pacient[0].Asistent.Nume)
+                </a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pacient[0].CategoriePacient)
             </th>
 
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Pacient) {
-        <tr>
+        @foreach (var item in Model.PacientD.Pacienti)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.PacientID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
             <td>
                 @Html.DisplayFor(modelItem => item.Nume)
             </td>
@@ -55,7 +78,15 @@
                 </th>
                 <td>
                     @Html.DisplayFor(modelItem => item.Asistent.Nume)
-                </td>s
+                </td>
+                <td>
+                    @{
+                        foreach (var categorie in item.CategoriePacient)
+                        {
+                            @categorie.Categorie.ID @: @categorie.Categorie.NumeCategorie <br />
+                        }
+                    }
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

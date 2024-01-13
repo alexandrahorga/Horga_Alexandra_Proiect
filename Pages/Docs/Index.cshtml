@@ -59,10 +59,18 @@
                     @{
                         foreach (var b in item.Pacienti)
                         {
+                            if (b != null && b.Asistent != null)
+                            {
+                                @b.Nume
 
-                            @b.Nume<p>ASISTAT DE:</p>@:@b.Asistent.FullName
-
-                            <br />
+                                <p>ASISTENT:</p> @: @b.Asistent.FullName
+                                <br />
+                            }
+                            else
+                            {
+                                // Handle the case where either b or b.Asistent is null
+                                <p>Invalid Data</p>
+                            }
                         }
                     }
                 </td>

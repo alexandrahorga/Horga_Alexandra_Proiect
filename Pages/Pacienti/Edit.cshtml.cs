@@ -31,50 +31,64 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
                 return NotFound();
             }
 
-            var pacient =  await _context.Pacient.FirstOrDefaultAsync(m => m.ID == id);
-            if (pacient == null)
+            //se va include Author conform cu sarcina de la lab 2
+            Pacient = await _context.Pacient
+            .Include(b => b.Doc)
+            .Include(b => b.Asistent)
+            .Include(b => b.CategoriePacient).ThenInclude(b => b.Categorie)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(m => m.ID == id);
+            if (Pacient == null)
             {
                 return NotFound();
             }
-            Pacient = pacient;
-            ViewData["DocID"] = new SelectList(_context.Set<Doc>(), "ID", "NumeDoctor");
-            ViewData["AsistentID"] = new SelectList(_context.Set<Asistent>(), "ID", "Nume");
+            PopulareDateCategorie(_context, Pacient);
+            var asistentList = _context.Asistent.Select(x => new
+            {
+                x.ID,
+                FullName = x.Prenume + " " + x.Nume
+            });
+            ViewData["AsistentID"] = new SelectList(asistentList, "ID", "FullName");
+            ViewData["DocID"] = new SelectList(_context.Doc, "ID",
+           "NumeDoctor");
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id, string[] selectedCategories)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return Page();
+                return NotFound();
             }
-
-            _context.Attach(Pacient).State = EntityState.Modified;
-
-            try
+            //se va include Author conform cu sarcina de la lab 2
+            var pacientToUpdate = await _context.Pacient
+            .Include(i => i.Doc)
+            .Include(i => i.Asistent)
+            .Include(i => i.CategoriePacient)
+            .ThenInclude(i => i.Categorie)
+            .FirstOrDefaultAsync(s => s.ID == id);
+            if (pacientToUpdate == null)
             {
+                return NotFound();
+            }
+            //se va modifica AuthorID conform cu sarcina de la lab 2
+            if (await TryUpdateModelAsync<Pacient>(
+            pacientToUpdate,
+            "Pacient",
+            i => i.Nume, i => i.Asistent,
+            i => i.Afectiune, i => i.DataConsultatie, i => i.DocID))
+            {
+                UpdateCategoriiPacient(_context, selectedCategories, pacientToUpdate);
                 await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PacientExists(Pacient.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return RedirectToPage("./Index");
-        }
-
-        private bool PacientExists(int id)
-        {
-          return (_context.Pacient?.Any(e => e.ID == id)).GetValueOrDefault();
+            //Apelam UpdateBookCategories pentru a aplica informatiile din checkboxuri la entitatea Books care
+            //este editata
+            UpdateCategoriiPacient(_context, selectedCategories, pacientToUpdate);
+            PopulareDateCategorie(_context, pacientToUpdate);
+            return Page();
         }
     }
 }
