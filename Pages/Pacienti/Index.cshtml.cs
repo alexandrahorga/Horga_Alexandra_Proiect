@@ -20,9 +20,12 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
         }
 
         public IList<Pacient> Pacient { get;set; } = default!;
-
-        public async Task OnGetAsync()
+        public string NumeSort { get; set; }
+        public string AsistentSort { get; set; }
+        public async Task OnGetAsync(string sortOrder)
         {
+            NumeSort = String.IsNullOrEmpty(sortOrder) ? "nume_desc" : "";
+            AsistentSort = sortOrder == "asistent" ? "asistent_desc" : "asistent";
             ///if (_context.Pacient != null)
             ///{
             ///Pacient = await _context.Pacient.ToListAsync();
@@ -31,6 +34,8 @@ namespace Horga_Alexandra_Proiect.Pages.Pacienti
                 .Include(b => b.Doc)
                 .Include(c => c.Asistent)
                 .ToListAsync();
+
+
         }
     }
 }
